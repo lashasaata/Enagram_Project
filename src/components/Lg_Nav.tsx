@@ -90,6 +90,7 @@ function Lg_Nav() {
           <img src="/dots-menu.svg" alt="setings" className="cursor-pointer" />
         </section>
       </nav>
+      <span className="hidden">{open}</span>
     </aside>
   );
 }

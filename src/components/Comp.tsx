@@ -2,31 +2,6 @@ import { useState } from "react";
 import { diffChars } from "diff";
 import Loading from "./loading";
 
-interface TextDiffProps {
-  oldText: string;
-  newText: string;
-}
-
-const TextDiff: React.FC<TextDiffProps> = ({ oldText, newText }) => {
-  const differences = diffChars(oldText, newText);
-
-  return (
-    <div className="font-mono text-lg">
-      {differences.map((part, index) => {
-        let className = "";
-        if (part.added) className = "bg-green-300 text-black rounded";
-        else if (part.removed) className = "bg-red-300 text-black rounded";
-
-        return (
-          <span key={index} className={className}>
-            {part.value}
-          </span>
-        );
-      })}
-    </div>
-  );
-};
-
 function Comp() {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState("ქართული");
