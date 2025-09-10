@@ -1,4 +1,30 @@
 import { useState } from "react";
+import { diffChars } from "diff";
+
+interface TextDiffProps {
+  oldText: string;
+  newText: string;
+}
+
+const TextDiff: React.FC<TextDiffProps> = ({ oldText, newText }) => {
+  const differences = diffChars(oldText, newText);
+
+  return (
+    <div className="font-mono text-lg">
+      {differences.map((part, index) => {
+        let className = "";
+        if (part.added) className = "bg-green-300 text-black rounded";
+        else if (part.removed) className = "bg-red-300 text-black rounded";
+
+        return (
+          <span key={index} className={className}>
+            {part.value}
+          </span>
+        );
+      })}
+    </div>
+  );
+};
 
 function Comp() {
   const [open, setOpen] = useState(false);
@@ -6,9 +32,11 @@ function Comp() {
 
   const options = ["ქართული", "ინგლისური"];
 
+  const differences = diffChars(oldText, newText);
+
   return (
-    <main className="flex flex-col gap-6 px-4 md:px-7 pt-4 md:pt-0">
-      <section className="flex flex-col md:flex-row md:justify-between gap-4 md:pb-4 md:border-b md:border-[#ededed]">
+    <main className="lg:w-full flex flex-col gap-6 px-4 md:px-7 pt-4 md:pt-0 lg:px-6 xl:pr-12">
+      <section className="flex flex-col md:flex-row md:justify-between gap-4 md:pb-4 lg:pt-6 md:border-b md:border-[#ededed]">
         <div className="flex flex-col md:flex-row gap-4 md:gap-6">
           <div className="relative">
             {/* Selected */}
@@ -16,7 +44,7 @@ function Comp() {
               onClick={() => setOpen(!open)}
               className={`${
                 open ? "border-[#4571E4]" : "border-[#e0e0e0]"
-              } w-full flex items-center justify-between gap-1 px-[14px] md:pr-[6px] py-[9px] border  rounded-[8px]`}
+              } w-full flex items-center justify-between gap-1 lg:w-[155px] px-[14px] md:pr-[6px] py-[9px] border  rounded-[8px]`}
             >
               <div className="flex items-center gap-1 text-sm text-[#383a48] leading-[22px] font-medium">
                 {selected}
@@ -26,7 +54,7 @@ function Comp() {
 
             {/* Dropdown */}
             {open && (
-              <ul className="absolute flex flex-col gap-3 mt-1 bg-white border border-[#4571E4] rounded-[8px] shadow-lg z-10 py-4 px-3">
+              <ul className="absolute lg:w-full flex flex-col gap-3 mt-1 bg-white border border-[#4571E4] rounded-[8px] shadow-lg z-10 py-4 px-3">
                 {options.map((o, index) => (
                   <li
                     key={index}
@@ -88,7 +116,7 @@ function Comp() {
           </label>
         </div>
         <div className="pb-4 md:pb-0 border-b border-[#ededed] md:border-0">
-          <button className="w-full flex items-center justify-center gap-1 h-[42px] rounded-[6px] bg-add md:pl-3 md:pr-4 cursor-pointer">
+          <button className="w-full flex items-center justify-center gap-1 lg:gap-2 h-[42px] rounded-[6px] bg-add md:pl-3 md:pr-4 cursor-pointer">
             <img src="/Plus.svg" alt="" />
             <span className="text-sm text-[#fff] leading-[28px] ">
               ახლის გახსნა
@@ -96,23 +124,47 @@ function Comp() {
           </button>
         </div>
       </section>
-      <section className="flex flex-col md:flex-row items-center md:justify-between gap-4">
+      <section className="lg:w-full flex flex-col md:flex-row items-center md:justify-between gap-4 lg:gap-[10px]">
         <textarea
           name="start"
           id="end"
           placeholder="დაიწყე წერა..."
-          className="outline-none w-full md:w-[330px] h-[190px] md:h-[432px] p-3 rounded-[8px] bg-[#f0f7ff] hlaceholder:text-sm placeholder:text-add placeholder:leading-[22px] text-sm md:text-lg text-[#383a48] leading-[22px] resize-none"
-        />
+          className="outline-none w-full md:w-[330px] lg:w-[342px] xl:w-[442px] 2xl:w-[542px] h-[190px] md:h-[432px] p-3 rounded-[8px] bg-[#f0f7ff] hlaceholder:text-sm placeholder:text-add placeholder:leading-[22px] text-sm md:text-lg text-[#383a48] leading-[22px] resize-none"
+        >
+          {differences.map((part, index) => {
+            let className = "";
+            if (part.added) className = "bg-green-300 text-black rounded";
+            else if (part.removed) className = "bg-red-300 text-black rounded";
+
+            return (
+              <span key={index} className={className}>
+                {part.value}
+              </span>
+            );
+          })}
+        </textarea>
         <img src="/Arrow.svg" alt="" className="md:hidden" />
-        <img src="/HArrow.svg" alt="" className="sm:hidden md:flex" />
+        <img src="/HArrow.svg" alt="" className="hidden md:flex" />
         <textarea
           name="end"
           id="end"
           placeholder="დაიწყე წერა..."
-          className="outline-none w-full md:w-[330px] h-[190px] md:h-[432px] p-3 rounded-[8px] bg-[#f0f7ff] hlaceholder:text-sm placeholder:text-add placeholder:leading-[22px] text-sm md:text-lg text-[#383a48] leading-[22px] resize-none"
-        />
+          className="outline-none w-full md:w-[330px] lg:w-[342px] xl:w-[442px] 2xl:w-[542px] h-[190px] md:h-[432px] p-3 rounded-[8px] bg-[#f0f7ff] hlaceholder:text-sm placeholder:text-add placeholder:leading-[22px] text-sm md:text-lg text-[#383a48] leading-[22px] resize-none"
+        >
+          {differences.map((part, index) => {
+            let className = "";
+            if (part.added) className = "bg-green-300 text-black rounded";
+            else if (part.removed) className = "bg-red-300 text-black rounded";
+
+            return (
+              <span key={index} className={className}>
+                {part.value}
+              </span>
+            );
+          })}
+        </textarea>
       </section>
-      <button className="w-[142px] h-[38px] rounded-[6px] bg-add mt-1 md:mt-2 mb-10 text-sm text-[#fff] leading-[28px] self-center cursor-pointer">
+      <button className="w-[142px] h-[38px] lg:h-12 rounded-[6px] bg-add mt-1 md:mt-2 mb-10 text-sm text-[#fff] leading-[28px] self-center cursor-pointer">
         შედარება
       </button>
     </main>

@@ -3,7 +3,7 @@ import { useState } from "react";
 function Mob_Nav() {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState({
-    value: "1",
+    value: "2",
     label: "ტექსტის შედარება",
     icon: "/Comp.svg",
   });
@@ -17,8 +17,8 @@ function Mob_Nav() {
   ];
 
   return (
-    <header className="flex flex-col">
-      <nav className="flex items-center justify-between h-[60px] py-3 px-5 bg-[#132450]">
+    <header className="flex flex-col lg:hidden">
+      <nav className="flex items-center justify-between h-[60px] py-3 px-5 md:py-[30px] bg-[#132450]">
         <div className="flex items-center relative">
           <img src="/Logo.png" alt="Logo" className="w-9 h-9 cursor-pointer" />
           <span className="text-[7px] text-[#fff] font-bold mt-[-8px]">
@@ -30,15 +30,23 @@ function Mob_Nav() {
           <img src="/menu.png" alt="Menu" className="cusros-pointer" />
         </div>
       </nav>
-      <section className="relative  p-4 border-b border-[#ededed]">
+      <section className="relative p-4 md:py-6 md:px-[30px] border-b border-[#ededed]">
         {/* Selected */}
         <button
           onClick={() => setOpen(!open)}
-          className="flex items-center gap-1 "
+          className="flex items-center gap-1 bg-add rounded-md"
         >
-          <div className="flex items-center gap-1 text-xs text-[#132450] leading-[20px] font-bold">
-            <img src={selected.icon} alt="" className="w-5 h-5" />
-            {selected.label}
+          <div className="flex items-center gap-1 text-xs md:text-base text-[#132450] leading-[20px] font-bold ">
+            <img src={selected.icon} alt="" className="w-5 md:w-6 h-5 md:h-6" />
+            {selected.label == "ხმა" || selected.label == "ტექსტი" ? (
+              <span className="flex items-center gap-1 ">
+                {selected.label}
+                <img src="/arrow-right.svg" alt="" />
+                {selected.label == "ხმა" ? "ტექსტი" : "ხმა"}
+              </span>
+            ) : (
+              selected.label
+            )}
           </div>
           <img src="/ArrowD.svg" alt="" />
         </button>
@@ -54,10 +62,18 @@ function Mob_Nav() {
                 }}
                 className={`${
                   o.value === selected.value ? "bg-gray-200" : ""
-                } flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer`}
+                } flex items-center gap-2 p-2 hover:bg-gray-300 cursor-pointer`}
               >
                 <img src={o.icon} alt="" className="w-5 h-5" />
-                {o.label}
+                {o.label == "ხმა" || o.label == "ტექსტი" ? (
+                  <span className="flex items-center gap-1">
+                    {o.label}
+                    <img src="/arrow-right.svg" alt="" />
+                    {o.label == "ხმა" ? "ტექსტი" : "ხმა"}
+                  </span>
+                ) : (
+                  o.label
+                )}
               </li>
             ))}
           </ul>
