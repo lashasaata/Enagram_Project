@@ -3,7 +3,7 @@ import { useState } from "react";
 function Lg_Nav() {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState({
-    value: "1",
+    value: "2",
     label: "ტექსტის შედარება",
     icon: "/Comp.svg",
   });
@@ -19,9 +19,9 @@ function Lg_Nav() {
   let user = { name: "Lasha Saatashvili", avatar: null };
 
   return (
-    <aside className="lg:min-h-screen lg:relative lg:min-w-[240px] lg:bg-[#fff]">
+    <aside className="hidden lg:flex lg:min-h-screen lg:relative lg:min-w-[240px] lg:bg-[#fff]">
       <nav className="hidden lg:min-w-[240px] lg:h-full lg:flex lg:flex-col lg:justify-between lg:bg-[#132450] lg:absolute lg:pt-3">
-        <div className="hidden absolute w-full lg:flex lg:justify-end lg:pr-[27px]">
+        <div className="hidden absolute w-full lg:flex lg:justify-end lg:pr-[27px] cursor-pointer">
           <img src="/chevrons-left.svg" alt="menu" />
         </div>
         <div className="flex items-center justify-between h-[60px] lg:h-[45px] py-3 lg:px-6 lg:py-0 px-5 md:py-[30px] bg-[#132450] lg:mt-[32px]">
@@ -56,9 +56,9 @@ function Lg_Nav() {
                 }}
                 className={`${
                   o.value === selected.value
-                    ? "bg-gray-200 text-[#132450] font-bold"
+                    ? "bg-[#fff] text-[#132450] font-bold"
                     : "text-[#fff] font-normal"
-                } flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer text-sm leading-[20px] `}
+                } flex items-center gap-2 p-2 hover:bg-gray-500 cursor-pointer text-sm leading-[20px] rounded-[20px] `}
               >
                 <img src={o.icon} alt="" className="w-5 h-5" />
                 {o.label == "ხმა" || o.label == "ტექსტი" ? (
