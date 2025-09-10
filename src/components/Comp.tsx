@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { diffChars } from "diff";
-import Loading from "./loading";
+import Loading_Component from "./Loading_Component";
 
 function Comp() {
   const [open, setOpen] = useState(false);
@@ -112,7 +112,7 @@ function Comp() {
         </button>
       </section>
       {compare && isLoading ? (
-        <Loading isLoading={isLoading} setIsLoading={setIsLoading} />
+        <Loading_Component isLoading={isLoading} setIsLoading={setIsLoading} />
       ) : (
         <section className="lg:w-full flex flex-col md:flex-row items-center md:justify-between gap-4 lg:gap-[10px]">
           {compare ? (
